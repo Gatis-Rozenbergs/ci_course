@@ -13,7 +13,7 @@ pipeline {
         stage('deploy-dev') {
             steps {
                 script {
-                    deploy("DEV")
+                    deploy("dev")
                 } 
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('test-dev') {
             steps {
                 script {
-                    test("DEV")
+                    test("dev")
                 } 
             }
         }
@@ -29,7 +29,7 @@ pipeline {
         stage('deploy-int') {
             steps {
                 script {
-                    deploy("INT")
+                    deploy("int")
                 } 
             }
         }
@@ -37,7 +37,7 @@ pipeline {
         stage('test-int') {
             steps {
                 script {
-                    test("INT")
+                    test("int")
                 } 
             }
         }
@@ -45,7 +45,7 @@ pipeline {
         stage('deploy-prod') {
             steps {
                 script {
-                    deploy("PROD")
+                    deploy("prod")
                 } 
             }
         }
@@ -53,7 +53,7 @@ pipeline {
         stage('test-prod') {
             steps {
                 script {
-                    test("PROD")
+                    test("prod")
                 } 
             }
         }
