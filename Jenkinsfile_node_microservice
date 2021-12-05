@@ -67,8 +67,21 @@ def deploy(String environment) {
 
 def test(String environment) {
     echo "Running tests to ${environment}"
-        sh "docker run --network=host -d -t --name api_test_executor${environment} api_test_executor:latest"
-    sh "docker exec api_test_executor${environment} cucumber --tags=@${environment} --format html --out tests-output/report.html"
-    sh "docker cp api_test_executor${environment}:/usr/src/api-tests/tests-output/report.html report_${environment}.html"
-    sh "docker rm -f api_test_executor${environment}"
+    sh "docker run --network=host -d -t --name api_test_executor${environment} api_test_executor:latest"
+
+    try {
+        sh "docker exec api_test_executor${environment} cucumber --tags=@${environment} --format html --out tests-output/report.html"
+    }
+    finally {
+        sh "docker cp api_test_executor${environment}:/usr/src/api-tests/tests-output/report.html report_${environment}.html"
+        sh "docker rm -f api_test_executor${environment}"
+        publishHTML([
+            allowMissing: false, 
+            alwaysLinkToLastBuild: false, 
+            keepAll: false, 
+            reportDir: '', 
+            reportFiles: 'report_${environment}.html', 
+            reportName: 'Test Report ${environment}', 
+            reportTitles: ''])
+    }
 }
