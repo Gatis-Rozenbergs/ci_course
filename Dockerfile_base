@@ -26,4 +26,4 @@ COPY Gemfile ./
 
 RUN bundle install
 
-RUN mkdir test-output
+RUN mkdir tests-output
